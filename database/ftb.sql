@@ -106,7 +106,7 @@ INSERT INTO passenger (passenger_id, address, email, first_name, last_name, pass
 (118, 'Apt. 967 678 Merrill Drive, Carlitaside, MS 91462-7672', 'cedrick.dach@example.com', 'Vern', 'Glover', '1794 195412', '(708) 717-3001', 32),
 (119, '5963 Quinton Crest, Timmouth, RI 29359-0261', 'annice.johnston@example.com', 'Ashley', 'Stanton', '8805 442741', '853-679-6406 x5365', 18),
 (120, '0138 Tomas Shore, Timothyville, SD 20667', 'delbert.yundt@example.com', 'Jessie', 'Labadie', '7415 227754', '118-063-0616 x291', 5),
-(121, 'Apt. 979 123 Lurlene Dam, East Odis, WA 82225', NULL, 'Colton', 'Dicki', '4502 621288', '001.170.2812', 42),
+(121, 'Apt. 979 123 Lurlene Dam, East Odis, WA 82225', 'colton.dicki@example.com', 'Colton', 'Dicki', '4502 621288', '001.170.2812', 42),
 (122, 'Apt. 390 394 Wehner Drive, Laritaburgh, CT 04673', 'asia.lesch@example.com', 'Kimbery', 'Bernier', '7984 815039', '435.129.9804 x72614', 11),
 (123, NULL, 'logan.toy@example.com', 'Ligia', 'Kling', '7243 869553', '079-560-0622 x202', 2),
 (125, '1143 Beverlee Mount, West Ulyssesfort, MD 75620', 'madie.gibson@example.com', 'Yer', 'Olson', '8648 181142', '967-421-0103', 50),
