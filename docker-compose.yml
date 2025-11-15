@@ -8,7 +8,7 @@ services:
       - "3306:3306"
     volumes:
       - ./database/mysql_data:/var/lib/mysql
-      - ./database/ftb.sql:/docker-entrypoint-initdb.d/ftb.sql:ro
+      - ./database/ftb_mysql.sql:/docker-entrypoint-initdb.d/ftb_mysql.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s

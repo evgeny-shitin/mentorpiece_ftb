@@ -104,7 +104,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                requestPath.equals("/v3/api-docs.yaml") ||
                requestPath.equals("/v3/api-docs-compact") ||
                requestPath.equals("/v3/api-docs-compact.yaml") ||
-               requestPath.equals("/database/ftb.sql") ||
+               requestPath.equals("/database/ftb_mysql.sql") ||
                requestPath.equals("/favicon.ico");
     }
 }

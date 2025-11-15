@@ -93,26 +93,26 @@ public class CompactApiDocsController {
     }
 
 
-    @GetMapping(value = "/database/ftb.sql", produces = "text/plain")
+    @GetMapping(value = "/database/ftb_mysql.sql", produces = "text/plain")
     public ResponseEntity<String> getDatabaseSchema() {
         try {
             // Try to read from file system first (for development)
-            Resource resource = new ClassPathResource("../../../database/ftb.sql");
+            Resource resource = new ClassPathResource("../../../database/ftb_mysql.sql");
             if (!resource.exists()) {
                 // Fallback: read from a copied resource in classpath
-                resource = new ClassPathResource("database/ftb.sql");
+                resource = new ClassPathResource("database/ftb_mysql.sql");
             }
 
             if (resource.exists()) {
                 String sqlContent = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
                 return ResponseEntity.ok()
                         .contentType(MediaType.TEXT_PLAIN)
-                        .header("Content-Disposition", "inline; filename=\"ftb.sql\"")
+                        .header("Content-Disposition", "inline; filename=\"ftb_mysql.sql\"")
                         .body(sqlContent);
             } else {
                 return ResponseEntity.ok()
                         .contentType(MediaType.TEXT_PLAIN)
-                        .body("-- FTB Database Schema not found\n-- This is an educational application for QA testing\n-- Database schema should be available in /database/ftb.sql");
+                        .body("-- FTB Database Schema not found\n-- This is an educational application for QA testing\n-- Database schema should be available in /database/ftb_mysql.sql");
             }
         } catch (IOException e) {
             return ResponseEntity.ok()

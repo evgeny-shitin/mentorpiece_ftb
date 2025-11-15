@@ -114,7 +114,7 @@ JWT_REFRESH_EXPIRATION=604800
    docker compose up --build
    ```
 
-   Optionally create `database/mysql_data` before the first run (Compose will create it automatically). The initial launch imports `database/ftb.sql` into MySQL; the app starts once the database healthcheck passes.
+   Optionally create `database/mysql_data` before the first run (Compose will create it automatically). The initial launch imports `database/ftb_mysql.sql` into MySQL; the app starts once the database healthcheck passes.
 
    _If you change `MYSQL_USER`/`MYSQL_PASSWORD`, remove `database/mysql_data` to re-initialise MySQL with the new credentials._
 
@@ -225,7 +225,7 @@ export DB_PASSWORD="your_password"
 ## 🐳 Docker Deployment
 
 - Multi-stage `Dockerfile` builds the application using Maven wrapper and runs it on Eclipse Temurin JRE 21.
-- `docker-compose.yml` orchestrates MySQL and the Spring Boot service, mounts `database/mysql_data`, and loads `database/ftb.sql` on first start.
+- `docker-compose.yml` orchestrates MySQL and the Spring Boot service, mounts `database/mysql_data`, and loads `database/ftb_mysql.sql` on first start.
 - Environment variables are injected through `.env`; adjust the file for different environments.
 
 ## 🔒 Security Notes
