@@ -1,0 +1,376 @@
+-- Таблица пользователей
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    firstname VARCHAR(100) NOT NULL,
+    lastname VARCHAR(100) NOT NULL,
+    middlename VARCHAR(100),
+    password VARCHAR(255) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE
+);
+INSERT INTO users (id, email, firstname, lastname, middlename, password, username)
+VALUES (1, 'john@gmail.com', 'John', 'Doe', NULL, '$2a$10$dRM33.Fy7SYDraG5vMagXOgIhsB6Tl40VI9pwMlNhB4yfLaZpQj.m', 'john');
+
+--- Пользователь 2
+INSERT INTO users (id, email, firstname, lastname, middlename, password, username)
+VALUES (2, 'mike@gmail.com', 'Mike', 'Jacson', NULL, '$2a$10$vukSIdxmmtLYcy/uNMBUHeyj/qbNPcaX8lqTbXGciJ9HxaLQOmRO.', 'mike');
+
+--- Пользователь 3 (кривой пароль)
+INSERT INTO users (id, email, firstname, lastname, middlename, password, username)
+VALUES (3, 'pipedPiper@google.com', 'Richard', 'Henricks', NULL, '1234', 'rhenricks');
+
+
+-- Таблица ролей
+CREATE TABLE roles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO roles (id, name) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO roles (id, name) VALUES (2, 'ROLE_AGENT');
+
+-- Таблица связей пользователей и ролей
+CREATE TABLE users_roles (
+    user_id INTEGER NOT NULL,
+    role_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+INSERT INTO users_roles (user_id, role_id)
+VALUES (1, 1);
+INSERT INTO users_roles (user_id, role_id)
+VALUES (3, 1);
+INSERT INTO users_roles (user_id, role_id)
+VALUES (2, 2);
+
+-- Таблица пассажиров
+CREATE TABLE passenger (
+    passenger_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    address VARCHAR(255),
+    email VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    passport_number VARCHAR(50) NOT NULL UNIQUE,
+    phone_number VARCHAR(20),
+    flight_flight_id INTEGER,
+    FOREIGN KEY (flight_flight_id) REFERENCES flight(flight_id)
+);
+
+INSERT INTO passenger (passenger_id, address, email, first_name, last_name, passport_number, phone_number, flight_flight_id) VALUES
+(3, '6171 Gerry Fork, Flatleyshire, NV 07158', 'gerard.block@example.com', 'Cla', 'Auer', '1446 308315', '289-009-4066 x1735', 5758),
+(4, '41294 Li Valleys, Borermouth, PA 59153', 'darron.harber@example.com', 'Alfonzo', 'McGlynn', '2389 610624', '1-546-806-9928 x5274', 10),
+(5, 'Apt. 559 081 Tremblay Club, Corkeryland, IL 21008', 'kaleigh.harvey@example.com', 'Jazmine', 'Иванов', '2546 656915', '641-628-9649 x2532', NULL),
+(8, 'Apt. 251 0071 Delbert Green, West Sammyburgh, NJ 88255', 'kortney.hegmann@example.com', 'Dennis', 'Schaefer', '0945 550994', '1-625-842-0515 x22489', 10),
+(9, '460 Wisoky Rapids, Port Eda, CA 23564-6011', 'dave.adams@example.com', 'Sara', 'Runolfsson', '5810 625574', '899.555.0701', 8),
+(11, '20454 Hassan Walks, Schinnerhaven, DE 57886', 'ethelene.armstrong@example.com', 'Jonathan', 'Hamill', '4783 654328', '367.190.5467', 3),
+(12, 'Suite 964 3063 Spencer River, Ellymouth, IN 68014-0062', 'jonathon.roob@example.com', 'Sammy', 'Pollich', '0805 155788', '1-798-159-6902', 8),
+(13, '3602 Murazik Crossroad, Port Bernitamouth, MO 86778', 'diann.veum@example.com', 'Dortha', 'Schuppe', '5126 555221', '1-558-451-2028 x12521', 6),
+(14, 'Suite 612 348 Ranae Vista, East Dallaschester, PA 34111', 'lorrine.effertz@example.com', 'Syble', 'Kunze', '1653 913522', '1-614-081-7620', 5),
+(15, 'New York', 'jd@example.com', 'John', 'Doe', '2631 550434', '9928573453', 4),
+(17, 'Apt. 033 749 Whitney Street, South Beatafurt, FL 05095-9696', 'eleni.jones@example.com', 'Simon', 'DuBuque', '2717 865185', '116-335-1330 x9170', 14),
+(18, '0407 Kilback Fort, West Adelaideland, MD 83674-7704', 'ulrike.grant@example.com', 'Sol', 'Orn', '0775 718121', '883-859-7043', 8),
+(19, 'Apt. 373 66007 Altenwerth Hollow, Daughertyton, MI 02450', 'natasha.prohaska@example.com', 'Shira', 'Harris', '4940 962308', '296.215.5951', 17),
+(20, '1174 Joaquin Greens, Lake Kirkville, MO 40195-4453', 'damien.crist@example.com', 'Carmine', 'Gorczany', '4900 979894', '1-033-341-8877 x4391', 11),
+(21, '03256 Fisher Mills, New Imelda, MN 21421', 'reuben.gutmann@example.com', 'Rufus', 'Hermiston', '5769 125096', '(885) 470-4449 x73008', 5),
+(22, '32270 Pouros Drive, Jamelbury, MD 82374-7313', 'oliver.stark@example.com', 'Janina', 'Waters', '6833 738289', '1-834-868-6943 x814', 9),
+(23, 'Apt. 071 958 Marlene Street, North Elidaton, CA 57800-0273', 'jamie.kautzer@example.com', 'Lucrecia', 'Abshire', '4975 107866', '(266) 040-1018 x215', 22),
+(24, 'Suite 439 49920 Hipolito Ford, Gwendaburgh, NE 54786-6029', 'willard.gutkowski@example.com', 'Renna', 'Moore', '6557 605668', '219-087-2274 x031', 22),
+(26, '232 Jeromy Villages, Namouth, FL 35916-8978', 'junior.hessel@example.com', 'Adrianna', 'Thompson', '8472 059046', '1-237-289-6224 x2095', 10),
+(27, '6213 Pfeffer Forge, Willport, NM 98021-4263', 'katherine.steuber@example.com', 'Maryln', 'Trantow', '3352 278604', '(062) 674-5765 x020', 33),
+(28, '6185 Green Creek, North Santos, WA 06157', 'chelsey.fay@example.com', 'Ben', 'Wiza', '2256 010145', '740-970-0841 x7429', 18),
+(29, '3119 Baumbach Union, Schimmelside, AL 02930', 'allison.mcdermott@example.com', 'Nery', 'Cummerata', '0229 541654', '(237) 853-3415', 2),
+(30, '406 Vernie Fall, Rickeyshire, AL 37942-7051', 'lynn.kreiger@example.com', 'Robert', 'Rosenbaum', '3235 880872', '(499) 981-5505', 29),
+(31, 'Suite 606 84381 Maragaret Manors, West Fidela, AK 11210', 'lashawna.runolfsson@example.com', 'Tamekia', 'Von', '8373 642039', '150-440-7683', 25),
+(32, '232 Romeo Fields, New Ellsworth, WV 22488-5540', 'clifford.swift@example.com', 'Branden', 'Reynolds', '9598 782123', '(461) 544-3311', 31),
+(33, '6684 Jude Freeway, East Normand, ME 23598', 'romona.denesik@example.com', 'Kareem', 'McGlynn', '5814 286914', '505.620.2089', 27),
+(34, 'Romania, Buharest', 'maria@mirabe.la', 'Maria', 'Mirabela', 'MM11111MM', '8888888', 33),
+(35, 'Suite 961 463 Dakota Lights, East Elbaburgh, IN 63848-4676', 'carmine.ullrich@example.com', 'Denver', 'Mirabela', '7097 929151', '2342222222222-157-0739', 3),
+(101, 'Apt. 910 58735 Brice Loaf, Breitenbergmouth, WV 91157', 'errol.pagac@example.com', 'Horace', 'Kozey', '3012 637708', '190.509.7036 x766', 41),
+(102, '74320 Greenholt Drives, West Dreama, MT 53435-4259', 'karolyn.shanahan@example.com', 'Elias', 'Gerhold', '9149 568807', '713.026.9034 x0399', 19),
+(103, '189 Johnston Port, Glennside, OK 84567-4101', 'lisha.cummerata@example.com', 'Pearlene', 'O''Connell', '8169 185392', '227-684-4822 x142', 15),
+(104, 'Suite 320 8749 Luettgen Row, Reneborough, MT 35569-3784', 'ahmed.batz@example.com', 'Nicola', 'Wintheiser', '8017 163925', '907-424-8356 x577', 42),
+(105, 'Apt. 380 79339 Rogahn Plains, South Juliannaville, WA 27843', 'ronda.ratke@example.com', 'Eddie', 'Kemmer', '6693 287564', '1-918-730-1428 x526', 5),
+(107, '4055 Matilde Lights, New Chuck, NC 88730', 'zena.sawayn@example.com', 'Janiece', 'Welch', '8661 142669', '(429) 184-5090 x26997', 45),
+(108, '8919 Botsford Center, Magalyhaven, KY 30271-4205', 'ashely.mann@example.com', 'Elisa', 'Huels', '7655 648579', '(601) 919-0717', 41),
+(109, 'Suite 090 885 Muller Corners, East Reyna, VT 01316', 'kurt.schroeder@example.com', 'Frederick', 'Barrows', '9186 466634', '1-012-926-9058 x9962', 8),
+(110, 'Suite 145 187 Noel Meadows, Townechester, MN 08194-4446', 'malik.leuschke@example.com', 'Hayden', 'Johns', '6233 572759', '878-702-9501', 36),
+(111, '24642 Kovacek Extension, Krajcikside, KS 39578', 'toby.zulauf@example.com', 'Frances', 'Hickle', '1413 962499', '1-288-573-0742 x518', 36),
+(112, 'Apt. 886 22249 Simonis Keys, Imamouth, MS 97177', 'sha.mante@example.com', 'Virgil', 'Keeling', '9985 391947', '621.260.6627 x907', 43),
+(113, 'Apt. 124 62497 Verlie Corner, North Lourieland, RI 38357', 'leonore.schmitt@example.com', 'Herb', 'Kassulke', '2981 671017', '907-404-2217', 5),
+(114, 'Apt. 142 9578 Hamill Burg, Lake Raymondchester, AZ 40303-9035', 'marisol.nader@example.com', 'Cordell', 'King', '0308 082944', '(834) 098-2530 x7399', 3),
+(115, 'Suite 115 179 Virgie Flats, Darlenebury, RI 05299', 'christine.reilly@example.com', 'Nicolas', 'Kreiger', '0804 458690', '093.373.8857', 3),
+(116, 'Apt. 142 78559 Strosin Ramp, Hayesfort, WI 46541-1174', 'felecia.douglas@example.com', 'Arla', 'Bins', '9776 765062', '1-150-809-8884 x33701', 54),
+(117, '5504 Shamika Rest, Gibsonfurt, MO 55321', 'robt.okeefe@example.com', 'Edward', 'Weimann', '5265 299915', '267.847.0186', 58),
+(118, 'Apt. 967 678 Merrill Drive, Carlitaside, MS 91462-7672', 'cedrick.dach@example.com', 'Vern', 'Glover', '1794 195412', '(708) 717-3001', 32),
+(119, '5963 Quinton Crest, Timmouth, RI 29359-0261', 'annice.johnston@example.com', 'Ashley', 'Stanton', '8805 442741', '853-679-6406 x5365', 18),
+(120, '0138 Tomas Shore, Timothyville, SD 20667', 'delbert.yundt@example.com', 'Jessie', 'Labadie', '7415 227754', '118-063-0616 x291', 5),
+(121, 'Apt. 979 123 Lurlene Dam, East Odis, WA 82225', 'vickey.blick@example.com', 'Colton', 'Dicki', '4502 621288', '001.170.2812', 42),
+(122, 'Apt. 390 394 Wehner Drive, Laritaburgh, CT 04673', 'asia.lesch@example.com', 'Kimbery', 'Bernier', '7984 815039', '435.129.9804 x72614', 11),
+(123, 'Apt. 664 319 Ebonie Crest, Shylafurt, CO 44906', 'logan.toy@example.com', 'Ligia', 'Kling', '7243 869553', '079-560-0622 x202', 2),
+(125, '1143 Beverlee Mount, West Ulyssesfort, MD 75620', 'madie.gibson@example.com', 'Yer', 'Olson', '8648 181142', '967-421-0103', 50),
+(126, '7909 Markus Street, East Rosann, RI 29732', 'charlyn.heaney@example.com', 'George', 'Turner', '9993 451820', '1-621-941-1713 x08412', 8),
+(127, 'Apt. 584 2265 Kunze Mall, Lake Rosaliemouth, UT 34117-7915', 'piper.smitham@example.com', 'Rory', 'Abernathy', '0945 598215', '468-791-6958', 8),
+(128, 'Suite 719 95724 Runolfsson Greens, New Alexis, RI 65864-3788', 'lindsey.jones@example.com', 'Leo', 'Hessel', '7913 798567', '879-835-9017 x346', 14),
+(129, 'Apt. 745 49174 Welch Coves, Franciston, OK 47285', 'corrinne.erdman@example.com', 'Kermit', 'Gusikowski', '0425 005076', '1-010-403-2558', 17),
+(130, '09202 Willard Villages, New Marquisborough, OK 19855-1122', 'stephany.gutmann@example.com', 'Solange', 'Wehner', '4653 155725', '(365) 751-9514 x4019', 11),
+(131, 'Apt. 490 4477 Hoeger Inlet, Blandahaven, IL 03381-5406', 'ronna.kub@example.com', 'Mack', 'Sipes', '3566 425152', '(017) 859-2940 x5010', 40),
+(132, 'Suite 108 250 Denita Road, South Kalynchester, IL 10613', 'magaly.dietrich@example.com', 'Elden', 'Frami', '2168 145140', '(157) 752-0082 x12713', 72),
+(133, 'Apt. 169 4573 Tamar Camp, Port Leta, WA 64212', 'agnes.greenholt@example.com', 'Bill', 'Stiedemann', '4930 672337', '588-185-5352 x0281', 46),
+(134, 'Suite 993 885 Botsford Green, Zulaufside, UT 68369', 'hwa.hoppe@example.com', 'August', 'Schmitt', '6229 216167', '322-135-3913', 55),
+(135, 'Apt. 120 577 Kuhn Ways, Baileyview, WV 12750', 'stephan.kreiger@example.com', 'Tobias', 'Runolfsson', '9286 320968', '1-645-401-7908 x14099', 20),
+(136, '693 Crona Summit, Lake Jeanineville, AK 29347-0694', 'grover.gutkowski@example.com', 'Denny', 'Buckridge', '5487 280420', '705.332.1647 x314', 49),
+(137, 'Apt. 089 517 Romaguera River, West Nelida, IA 79202', 'philip.hettinger@example.com', 'Myrtle', 'Pacocha', '3787 779670', '1-569-543-1804 x18531', 72),
+(138, '559 Rocco Land, New Estebanview, CO 36185-6907', 'stephan.pfeffer@example.com', 'Michelle', 'Renner', '1583 675472', '1-790-048-3597 x94859', 75),
+(139, '832 Lang Loaf, Lake Frankie, AZ 63301-0341', 'emanuel.mraz@example.com', 'Darleen', 'VonRueden', '9307 198996', '1-263-204-2652', 78),
+(140, 'Apt. 278 9677 Bette Pass, Satterfieldberg, AZ 35356', 'greta.brown@example.com', 'Sonia', 'O''Reilly', '2109 535362', '1-836-235-1548 x93928', 78);
+
+
+
+-- Таблица аэропортов
+CREATE TABLE airport (
+    airport_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    airport_code VARCHAR(10) NOT NULL UNIQUE,
+    airport_name VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    state VARCHAR(100)
+);
+
+-- Таблица самолётов
+CREATE TABLE aircraft (
+    aircraft_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    manufacturer VARCHAR(100),
+    model VARCHAR(100),
+    number_of_seats INTEGER
+);
+
+INSERT INTO airport (airport_id, airport_code, airport_name, city, country, state) VALUES
+(1, 'ZBAR', 'Nick Ovtime', 'Robelton', 'Saudi Arabia', 'Texas'),
+(2, 'LED', 'string', 'string', 'string', 'string'),
+(3, 'FAPG', 'Gladys Eeya', 'Heaneyburgh', 'South Georgia and the South Sandwich Islands', 'South Carolina'),
+(4, 'GANR', 'Therese R. Green', 'New Barretttown', '001-321-5478', 'Wisconsin'),
+(5, 'VEAN', 'Sally Mander', 'Elwoodside', 'Finland', 'Maryland'),
+(6, 'EBKT', 'Anna Sasin', 'Swaniawskihaven', 'Bosnia and Herzegovina', 'Utah'),
+(7, 'OIAW', 'Pepe Roni', 'Mannborough', 'Guam', 'Illinois'),
+(8, 'GASK', 'Jim Sox', 'Port Merlyn', 'Uganda', 'Maine'),
+(9, 'SBSP', 'Owen Cash', 'South Annabell', 'Lebanon', 'Washington'),
+(10, 'UWWW', 'Ken Dahl', 'Teodoroville', 'Argentina', 'Iowa'),
+(11, 'FAMG', 'Hy Ball', 'Tawnybury', 'Poland', 'Texas'),
+(12, 'DAAD', 'Braxton Hicks', 'Beerfort', 'Saint Barthelemy', 'Michigan'),
+(13, 'DAL', 'Dallas Love Field', 'Dallas', 'United States', 'Dallas'),
+(14, 'DCG', 'Dubai Creek SPB', 'Dubai', 'United Arab Emirates', 'Dubai'),
+(15, 'CID', 'Cedar Rapid Airport', 'IOWA', 'Iowa', 'United States'),
+(16, 'CHI', 'Chicago Airport', 'Chicago', 'United States', 'Illinois'),
+(17, 'CLN', 'California Airport', 'California', 'United States', 'California'),
+(18, 'TEX', 'Texas Airport', 'Texas', 'United States', 'Texas'),
+(27, 'MHCC', 'Des Buratto', 'Konopelskiside', 'Equatorial Guinea', 'West Virginia'),
+(28, 'VABB', 'Hy Gene', 'North Donnyfurt', 'Guadeloupe', 'Nevada'),
+(29, 'USRR', 'Adam Bomb', 'East Tanja', 'Niger', 'Ohio'),
+(30, 'AGAF', 'Al Nino', 'Port Gigi', 'Moldova', 'New Jersey'),
+(31, 'URWW', 'Cy Kosis', 'Shellieshire', 'Virgin Islands, British', 'Wyoming'),
+(32, 'TDCF', 'Ray Gunn', 'West Rigobertobury', 'Anguilla', 'Idaho'),
+(33, 'GCHI', 'Kristie Hannity', 'New Melanihaven', 'Turkey', 'Oklahoma'),
+(34, 'AGAT', 'Carson O. Gin', 'Lefflertown', 'Antigua and Barbuda', 'Wisconsin'),
+(35, 'CYBA', 'Al Luminum', 'Lebsackbury', 'Angola', 'Dakota'),
+(36, 'ZSPD', 'Carl Arm', 'Yundtchester', 'Montenegro', 'Rhode Island'),
+(37, 'MHAM', 'Godiva Headache', 'Bartellfort', 'Timor-Leste', 'New Hampshire'),
+(38, 'VEAPhfghfgh', 'Peg Leggegfhfdgh', 'Goldnerportfgdhbhfgb', 'Saint Martinfghfbh', NULL),
+(39, 'OIAJ', 'Lisa Honda', 'Kuhicfurt', 'Malta', 'Iowa'),
+(40, 'ENAL', 'Di O''Bolic', 'Faheyside', 'Comoros', 'Iowa'),
+(41, 'ULAA', 'Vlad Tire', 'Blockmouth', 'China', 'Iowa'),
+(42, 'RJAH', 'Phil A. Mignon', 'Buckridgeland', 'Ecuador', 'Virginia'),
+(43, 'NNV', 'Owen Big', 'New Jeffrey', 'Yemen', 'North Dakota'),
+(44, 'GCLA', 'Sally Forth', 'New Hortense', 'Ecuador', 'Vermont'),
+(45, 'WAAA', 'Skip Roper', 'South Ina', 'Austria', 'Rhode Island'),
+(46, 'SVMI', 'B. A. Ware', 'Altenwerthton', 'Switzerland', 'Nevada'),
+(47, 'FAPA', 'Duane Pipe', 'Denverland', 'Norway', 'Idaho'),
+(48, 'ZBAL', 'Al B. Zienya', 'Jedchester', 'Dominica', 'Arizona'),
+(49, 'HADD', 'Elle O''Quent', 'New Shonhaven', 'Saint Kitts and Nevis', 'New Mexico'),
+(50, 'PAAK', 'Joaquin DeFlores', 'Port Winston', 'Macao', 'South Carolina'),
+(51, 'NFFA', 'Robin Banks', 'Cassinview', 'French Guiana', 'South Carolina'),
+(52, 'WA44', 'Jacklyn Hyde', 'Lake Wava', 'Reunion', 'Iowa'),
+(53, 'LBPS', 'Juana Bea', 'Swaniawskiside', 'Iraq', 'Colorado'),
+(54, 'OIBB', 'Kat Toy', 'Brekkemouth', 'Moldova', 'Nebraska'),
+(62, 'CYAB', 'Eve O''Lution', 'East Jamartown', 'Samoa', 'Michigan'),
+(63, 'RJAA', 'Telly Vision', 'Lashundaberg', 'Namibia', 'Missouri'),
+(64, 'UUBB', 'Abel N. Willan', 'Louisview', 'Sudan++', 'Ohio'),
+(65, 'ZBBB', 'Evan Keel', 'Tremblayside', 'Bouvet Island (Bouvetoya)', 'New Hampshire'),
+(66, 'UUOO', 'Megan Bacon', 'Virgilioburgh', 'Yemen', 'New Hampshire'),
+(67, 'MHCG', 'Dee Kay', 'Port Howardville', 'Morocco', 'New York'),
+(68, 'YPPH', 'Brooke Waters', 'Donovanbury', 'Taiwan', 'Florida'),
+(69, 'UEEE', 'Pearl E. Gates', 'Merrillfurt', 'Georgia', 'Alabama'),
+(70, 'KAPA', 'Yule B. Sari', 'West Malcomton', 'Poland', 'Nevada'),
+(71, 'WAAB', 'Barb Dwyer', 'East Cruzport', 'Tonga', 'Indiana'),
+(72, 'SAAJ', 'Ginger Vitis', 'Tillmanstad', 'Panama', 'Missouri'),
+(73, 'KAAA', 'Harry Armand Bach', 'East Jaquelinehaven', 'French Guiana', 'Idaho'),
+(74, 'AYLA', 'Iona Corolla', 'South Ignaciofort', 'Belize', 'Connecticut'),
+(75, 'ZBAD', 'Bess Twishes', 'Cummingsfurt', 'Serbia', 'Massachusetts');
+
+
+
+-- Таблица рейсов
+CREATE TABLE flight (
+    flight_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arrival_date DATE NOT NULL,
+    arrival_time TIME NOT NULL,
+    departure_date DATE NOT NULL,
+    departure_time TIME NOT NULL,
+    flight_charge DECIMAL(10,2) NOT NULL,
+    flight_number VARCHAR(20) NOT NULL UNIQUE,
+    aircraft_aircraft_id INTEGER,
+    departure_airport_airport_id INTEGER,
+    destination_airport_airport_id INTEGER,
+    gate VARCHAR(10),
+    status VARCHAR(50),
+    FOREIGN KEY (aircraft_aircraft_id) REFERENCES aircraft(aircraft_id),
+    FOREIGN KEY (departure_airport_airport_id) REFERENCES airport(airport_id),
+    FOREIGN KEY (destination_airport_airport_id) REFERENCES airport(airport_id)
+);
+
+--- SQL-запрос для вставки данных в таблицу `flight`.
+--- Запрос использует синтаксис INSERT INTO ... VALUES (), (), ... для добавления всех записей одновременно.
+--- Обратите внимание, что значения 'arrival_time' и 'departure_time' извлечены из предоставленных строк UTC, а 'flight_charge' округлены до двух знаков после запятой, чтобы соответствовать DECIMAL(10,2).
+
+INSERT INTO flight (
+    flight_id, 
+    arrival_date, 
+    arrival_time, 
+    departure_date, 
+    departure_time, 
+    flight_charge, 
+    flight_number, 
+    aircraft_aircraft_id, 
+    departure_airport_airport_id, 
+    destination_airport_airport_id, 
+    gate, 
+    status
+) VALUES
+(1, '2022-09-26', '01:26:09', '2022-09-25', '00:22:33', 746.85, 'ZY-8171', 23, 2, 3, NULL, NULL),
+(2, '2022-10-18', '19:19:37', '2022-10-17', '22:43:18', 475.07, 'LZ-6334', 30, 16, 9, NULL, NULL),
+(3, '2022-10-19', '18:13:51', '2022-10-17', '20:48:02', 769.18, 'GG-7374', 6, 11, 5, NULL, NULL),
+(4, '2022-11-13', '22:32:51', '2022-11-11', '02:32:06', 830.11, 'WV-3817', 28, 7, 2, NULL, NULL),
+(5, '2022-10-23', '04:48:15', '2022-10-23', '18:36:09', 468.44, 'FF-3532', 30, 13, 4, NULL, NULL),
+(6, '2022-10-23', '20:21:22', '2022-10-23', '09:56:40', 64.16, 'PJ-4283', 37, 13, 3, NULL, NULL),
+(7, '2022-12-06', '22:42:59', '2022-12-05', '03:18:13', 1005.37, 'OR-7515', 25, 11, 7, NULL, NULL),
+(8, '2022-09-27', '15:38:01', '2022-09-25', '18:38:19', 54.71, 'WY-6811', 8, 16, 16, NULL, NULL),
+(9, '2022-10-10', '01:06:28', '2022-10-09', '07:18:57', 255.42, 'IB-3042', 6, 16, 11, NULL, NULL),
+(10, '2022-09-27', '07:54:11', '2022-09-25', '08:55:01', 412.79, 'LD-6875', 38, 3, 5, NULL, NULL),
+(11, '2022-10-20', '09:51:50', '2022-10-19', '21:14:03', 74.93, 'ZV-2731', 21, 10, 9, NULL, NULL),
+(12, '2022-12-25', '20:05:43', '2022-12-24', '23:16:28', 192.35, 'DB-0008', 9, 10, 9, NULL, NULL),
+(13, '2022-11-15', '17:48:56', '2022-11-14', '18:59:54', 245.61, 'NN-2131', 30, 12, 7, NULL, NULL),
+(14, '2022-11-17', '23:33:43', '2022-11-16', '18:17:00', 337.81, 'PG-7308', 39, 11, 15, NULL, NULL),
+(15, '2022-12-10', '17:31:13', '2022-12-09', '17:41:15', 967.36, 'TH-0388', 66, 18, 6, NULL, NULL),
+(16, '2022-11-21', '19:07:01', '2022-11-19', '18:58:00', 835.95, 'JG-7953', 49, 12, 6, NULL, NULL),
+(17, '2022-10-14', '20:16:56', '2022-10-13', '02:32:49', 36.49, 'JE-9752', 67, 4, 11, NULL, NULL),
+(18, '2022-11-12', '16:59:01', '2022-11-10', '01:25:36', 430.19, 'XI-8465', 8, 3, 3, NULL, NULL),
+(19, '2022-10-23', '22:19:15', '2022-10-22', '13:32:57', 52.01, 'YM-7185', 45, 3, 5, NULL, NULL),
+(20, '2022-11-11', '00:42:01', '2022-11-10', '01:48:37', 104.82, 'YO-3157', 78, 13, 15, NULL, NULL),
+(21, '2022-12-24', '18:13:13', '2022-12-23', '19:45:35', 86.46, 'NY-0110', 59, 18, 7, NULL, NULL),
+(22, '2023-02-13', '23:59:52', '2023-02-06', '03:36:30', 517.05, 'ZJ-6859', 35, 4, 4, NULL, NULL),
+(23, '2022-11-16', '20:43:48', '2022-11-15', '18:58:09', 634.88, 'XN-9892', 2, 17, 15, NULL, NULL),
+(24, '2023-01-13', '10:43:33', '2023-01-12', '00:13:11', 152.28, 'XK-8837', 72, 13, 9, NULL, NULL),
+(25, '2022-10-23', '09:05:30', '2022-10-23', '06:50:21', 417.88, 'UC-2112', 63, 31, 13, NULL, NULL),
+(26, '2022-10-23', '18:39:49', '2022-10-23', '09:17:18', 68.92, 'OT-6085', 98, 35, 4, NULL, NULL),
+(27, '2022-12-05', '17:05:35', '2022-12-03', '20:47:09', 436.28, 'GN-6962', 45, 32, 11, NULL, NULL),
+(28, '2023-01-18', '17:10:43', '2023-01-16', '15:59:52', 80.10, 'UG-8120', 84, 37, 12, NULL, NULL),
+(29, '2022-12-25', '04:51:48', '2022-12-23', '22:32:09', 815.54, 'MY-1229', 70, 13, 13, NULL, NULL),
+(30, '2022-11-30', '22:01:37', '2022-11-29', '23:47:21', 297.06, 'UC-6722', 112, 3, 12, NULL, NULL),
+(31, '2022-12-19', '06:49:56', '2022-12-17', '23:26:09', 928.01, 'ZW-9388', 74, 37, 36, NULL, NULL),
+(32, '2022-10-20', '15:05:08', '2022-10-19', '07:34:34', 598.73, 'DW-6301', 36, 4, 6, NULL, NULL),
+(33, '2022-10-23', '23:03:29', '2022-10-23', '19:56:01', 696.99, 'KA-6439', 38, 1, 8, NULL, NULL),
+(34, '2022-10-21', '04:20:09', '2022-10-19', '23:08:05', 846.12, 'LR-1100', 69, 37, 1, NULL, NULL),
+(35, '2022-11-03', '19:30:47', '2022-11-01', '16:27:56', 693.47, 'JV-8653', 106, 15, 3, NULL, NULL),
+(36, '2022-10-29', '01:56:33', '2022-10-27', '09:35:06', 863.45, 'JJ-9154', 76, 6, 12, NULL, NULL),
+(37, '2022-11-26', '00:17:14', '2022-11-25', '21:28:46', 792.06, 'CM-6804', 17, 1, 9, NULL, NULL),
+(38, '2022-11-22', '05:07:08', '2022-11-20', '20:14:52', 812.93, 'QT-0068', 72, 4, 10, NULL, NULL),
+(39, '2022-12-04', '19:24:53', '2022-12-03', '19:39:23', 967.90, 'CZ-3340', 56, 32, 15, NULL, NULL),
+(40, '2022-11-19', '09:24:55', '2022-11-18', '03:23:26', 704.01, 'PQ-2377', 115, 7, 45, NULL, NULL),
+(41, '2022-12-15', '00:11:15', '2022-12-14', '18:28:34', 402.52, 'MG-7127', 116, 7, 7, NULL, NULL),
+(42, '2022-12-11', '11:01:22', '2022-12-09', '17:38:54', 627.66, 'ON-4162', 111, 34, 6, NULL, NULL),
+(43, '2023-02-12', '22:50:08', '2023-02-10', '20:44:34', 841.04, 'LR-6385', 2, 10, 6, NULL, NULL),
+(44, '2022-11-15', '19:05:34', '2022-11-14', '06:32:33', 544.51, 'AU-3768', 35, 1, 33, NULL, NULL),
+(45, '2022-11-12', '19:24:42', '2022-11-10', '01:09:45', 716.12, 'YM-3403', 144, 30, 33, NULL, NULL),
+(46, '2022-12-11', '00:00:32', '2022-12-10', '19:52:35', 601.08, 'PO-5383', 14, 39, 34, NULL, NULL),
+(47, '2022-11-11', '18:05:02', '2022-11-10', '20:37:06', 980.42, 'UZ-2645', 136, 39, 27, NULL, NULL),
+(48, '2022-12-19', '23:43:19', '2022-12-18', '07:10:50', 647.64, 'CT-0691', 88, 18, 40, NULL, NULL),
+(49, '2022-12-08', '11:40:57', '2022-12-07', '01:49:12', 995.33, 'FC-2930', 35, 43, 27, NULL, NULL),
+(50, '2022-12-05', '19:29:45', '2022-12-03', '10:26:29', 371.67, 'IU-6650', 80, 45, 8, NULL, NULL),
+(51, '2022-11-03', '19:16:31', '2022-11-02', '21:44:23', 985.25, 'ZB-9494', 36, 7, 37, NULL, NULL),
+(53, '2022-11-06', '01:22:18', '2022-11-04', '18:02:47', 131.24, 'LO-5720', 19, 44, 17, NULL, NULL),
+(54, '2022-11-27', '20:33:54', '2022-11-26', '18:55:29', 58.81, 'FD-1444', 145, 15, 8, NULL, NULL),
+(55, '2022-11-08', '20:55:12', '2022-11-07', '21:19:03', 508.29, 'LL-9553', 145, 54, 13, NULL, NULL),
+(56, '2023-03-02', '00:14:33', '2023-02-28', '00:39:25', 44.56, 'DL-0525', 17, 12, 30, NULL, NULL),
+(57, '2023-01-08', '21:58:31', '2023-01-06', '22:57:12', 112.36, 'ZC-6603', 172, 31, 42, NULL, NULL),
+(58, '2022-11-04', '02:20:53', '2022-11-03', '02:10:13', 602.91, 'YN-6652', 155, 31, 4, NULL, NULL),
+(59, '2023-02-16', '19:21:18', '2023-02-14', '21:30:31', 374.21, 'KN-2706', 117, 5, 12, NULL, NULL),
+(60, '2023-03-03', '19:42:11', '2023-03-01', '23:27:08', 145.39, 'JH-1995', 109, 7, 28, NULL, NULL),
+(61, '2023-02-01', '20:03:10', '2023-01-30', '20:55:39', 307.33, 'VR-9556', 138, 15, 5, NULL, NULL),
+(62, '2022-11-13', '22:56:09', '2022-11-11', '22:01:05', 105.55, 'IE-2543', 187, 52, 3, NULL, NULL),
+(63, '2022-11-12', '18:24:20', '2022-11-11', '20:16:24', 70.81, 'ET-7664', 71, 13, 6, NULL, NULL),
+(64, '2022-11-14', '03:41:12', '2022-11-13', '23:40:23', 798.30, 'HR-4135', 203, 3, 41, NULL, NULL),
+(65, '2022-11-18', '05:59:53', '2022-11-16', '04:07:29', 980.35, 'US-8836', 180, 4, 13, NULL, NULL),
+(66, '2022-11-24', '21:38:48', '2022-11-22', '22:01:13', 260.02, 'RU-9396', 201, 13, 12, NULL, NULL),
+(67, '2022-11-06', '20:47:15', '2022-11-04', '23:59:05', 921.38, 'YW-6150', 24, 31, 30, NULL, NULL),
+(68, '2022-11-12', '22:09:51', '2022-11-11', '01:04:49', 664.96, 'IH-2273', 167, 31, 29, NULL, NULL),
+(69, '2022-11-05', '17:52:49', '2022-11-04', '22:50:38', 745.54, 'CF-0185', 55, 3, 6, NULL, NULL),
+(70, '2022-11-13', '20:24:30', '2022-11-11', '20:11:29', 782.22, 'JW-9448', 118, 37, 11, NULL, NULL),
+(71, '2022-11-16', '22:21:02', '2022-11-15', '01:26:56', 782.37, 'PV-0220', 186, 5, 31, NULL, NULL),
+(72, '2023-01-14', '19:07:51', '2023-01-12', '22:36:36', 114.54, 'EU-4023', 167, 18, 50, NULL, NULL),
+(73, '2022-11-19', '23:48:53', '2022-11-17', '18:32:04', 123.54, 'HT-1837', 111, 11, 11, NULL, NULL),
+(74, '2023-02-23', '04:09:59', '2023-02-21', '14:35:40', 147.31, 'HC-4516', 188, 49, 42, NULL, NULL),
+(75, '2023-01-13', '12:26:59', '2023-01-11', '12:45:23', 91.15, 'TI-3768', 257, 35, 28, NULL, NULL),
+(76, '2022-12-27', '13:12:59', '2022-12-26', '03:16:40', 868.87, 'SS-8338', 106, 5, 35, NULL, NULL),
+(77, '2022-12-18', '13:29:28', '2022-12-17', '13:51:23', 432.56, 'YV-7892', 175, 48, 30, NULL, NULL),
+(78, '2022-12-09', '18:11:42', '2022-12-07', '13:00:23', 763.07, 'EC-7052', 44, 51, 63, NULL, NULL),
+(79, '2022-11-11', '15:48:31', '2022-11-10', '18:52:21', 368.72, 'GW-2918', 164, 6, 63, NULL, NULL),
+(80, '2022-12-17', '18:21:56', '2022-12-16', '11:47:38', 522.32, 'KS-1631', 176, 17, 8, NULL, NULL),
+(81, '2022-11-08', '15:12:49', '2022-11-06', '16:25:59', 561.76, 'JE-7310', 162, 37, 5, NULL, NULL),
+(82, '2022-11-09', '23:49:11', '2022-11-07', '21:28:54', 470.04, 'RT-7952', 230, 16, 36, NULL, NULL),
+(83, '2022-12-17', '15:34:54', '2022-12-16', '10:09:00', 565.51, 'EV-4056', 51, 34, 17, NULL, NULL),
+(84, '2023-01-20', '11:43:59', '2023-01-18', '19:53:40', 715.67, 'PW-6720', 127, 28, 46, NULL, NULL),
+(85, '2022-11-16', '09:15:35', '2022-11-15', '22:11:47', 15.83, 'UC-8627', 229, 69, 50, NULL, NULL),
+(86, '2022-11-12', '04:58:19', '2022-11-11', '20:14:12', 539.37, 'RT-0326', 176, 64, 1, NULL, NULL),
+(87, '2022-12-17', '16:22:21', '2022-12-16', '02:26:30', 932.09, 'AP-7847', 10, 7, 1, NULL, NULL),
+(88, '2022-11-15', '21:42:43', '2022-11-14', '10:44:01', 653.12, 'WF-8233', 144, 17, 68, NULL, NULL),
+(90, '2023-02-14', '17:12:28', '2023-02-13', '01:58:04', 412.54, 'HR-0067', 155, 11, 67, NULL, NULL),
+(91, '2022-11-08', '19:58:48', '2022-11-07', '16:01:42', 150.06, 'VL-6617', 255, 53, 29, NULL, NULL),
+(92, '2022-12-11', '02:12:56', '2022-12-09', '01:27:51', 437.49, 'QC-2604', 123, 52, 54, NULL, NULL),
+(93, '2022-12-20', '01:53:17', '2022-12-18', '19:59:47', 684.28, 'AW-7731', 288, 18, 50, NULL, NULL),
+(94, '2022-12-19', '14:08:19', '2022-12-17', '16:09:42', 11.86, 'QX-9151', 141, 44, 12, NULL, NULL),
+(95, '2023-02-17', '20:24:01', '2023-02-16', '19:22:58', 912.15, 'QW-5884', 263, 54, 62, NULL, NULL),
+(96, '2022-11-21', '21:15:13', '2022-11-19', '16:56:26', 669.49, 'BZ-3782', 35, 69, 16, NULL, NULL),
+(97, '2023-02-25', '01:28:05', '2023-02-24', '18:44:28', 407.51, 'RU-5882', 95, 15, 74, NULL, NULL),
+(98, '2023-01-01', '01:35:06', '2022-12-31', '21:40:19', 395.97, 'DN-0922', 72, 72, 30, NULL, NULL),
+(99, '2022-12-21', '06:28:13', '2022-12-20', '04:50:01', 950.00, 'IQ-6416', 285, 48, 16, NULL, NULL),
+(100, '2022-11-18', '00:40:49', '2022-11-16', '19:14:49', 297.41, 'HP-0490', 58, 18, 75, NULL, NULL),
+(101, '2023-02-03', '20:49:07', '2023-02-01', '03:23:15', 564.05, 'EL-5726', 219, 28, 3, NULL, 'Задержан'),
+(102, '2022-12-13', '12:49:22', '2022-12-12', '19:53:51', 941.48, 'LS-2319', 116, 6, 31, NULL, 'Задержан'),
+(103, '2022-12-27', '20:50:55', '2022-12-26', '16:05:42', 335.69, 'AZ-4047', 76, 7, 74, NULL, 'Задержан'),
+(104, '2022-11-23', '17:50:23', '2022-11-22', '11:20:52', 704.27, 'XV-9732', 330, 73, 63, NULL, NULL),
+(105, '2022-12-10', '19:54:31', '2022-12-09', '03:55:10', 105.01, 'FY-7694', 265, 30, 72, NULL, NULL),
+(106, '2022-11-17', '01:30:30', '2022-11-16', '21:52:04', 784.14, 'PB-0311', 222, 77, 68, NULL, NULL),
+(107, '2023-03-08', '03:29:00', '2023-03-06', '19:16:43', 5.30, 'XH-3912', 36, 48, 52, NULL, NULL),
+(108, '2022-12-16', '20:32:38', '2022-12-14', '19:02:27', 775.40, 'WD-0409', 233, 31, 44, NULL, NULL),
+(109, '2022-12-25', '17:23:19', '2022-12-24', '23:29:25', 651.39, 'CC-7611', 302, 81, 32, NULL, NULL),
+(110, '2022-12-09', '18:11:00', '2022-12-07', '14:47:55', 121.18, 'KW-8662', 109, 66, 64, NULL, NULL),
+(111, '2022-11-23', '05:40:28', '2022-11-22', '18:48:50', 464.08, 'NS-7744', 20, 33, 2, NULL, NULL),
+(112, '2022-12-01', '20:14:16', '2022-11-29', '17:14:01', 327.10, 'TF-2130', 314, 52, 2, NULL, NULL),
+(113, '2023-04-03', '09:35:39', '2023-04-01', '17:07:18', 175.31, 'FR-5750', 79, 42, 49, NULL, NULL),
+(114, '2023-02-24', '09:28:00', '2023-02-22', '20:50:33', 834.34, 'XI-3018', 63, 80, 40, NULL, NULL),
+(115, '2023-03-10', '03:37:36', '2023-03-08', '06:45:03', 395.87, 'RU-6660', 140, 53, 62, NULL, NULL),
+(116, '2022-12-21', '00:10:58', '2022-12-20', '07:46:49', 930.90, 'ZH-2784', 305, 78, 27, NULL, NULL),
+(117, '2022-12-09', '08:53:52', '2022-12-08', '02:59:50', 580.58, 'EZ-8669', 365, 45, 7, NULL, NULL),
+(118, '2022-11-30', '12:16:51', '2022-11-29', '01:17:30', 873.60, 'JW-5749', 130, 52, 71, NULL, NULL),
+(119, '2022-11-25', '18:23:36', '2022-11-23', '18:38:15', 942.73, 'HT-8742', 180, 32, 69, NULL, NULL),
+(120, '2022-12-22', '05:44:14', '2022-12-21', '12:08:06', 30.46, 'PT-0199', 110, 11, 7, NULL, NULL),
+(121, '2022-12-27', '18:34:18', '2022-12-25', '14:11:05', 52.35, 'WW-7882', 415, 12, 50, NULL, NULL),
+(122, '2022-11-24', '01:19:07', '2022-11-23', '18:36:12', 193.72, 'XT-2496', 207, 32, 52, NULL, NULL),
+(123, '2022-11-17', '20:42:37', '2022-11-16', '19:09:54', 450.55, 'PC-7421', 359, 81, 64, NULL, NULL),
+(124, '2022-12-26', '21:55:10', '2022-12-24', '17:14:47', 604.71, 'JO-6427', 72, 52, 46, NULL, NULL),
+(125, '2022-12-26', '17:26:27', '2022-12-25', '22:21:23', 758.20, 'KP-4161', 272, 39, 17, NULL, NULL),
+(126, '2022-12-22', '01:43:58', '2022-12-21', '22:03:16', 642.43, 'KP-1166', 311, 74, 48, NULL, NULL),
+(127, '2022-11-20', '20:35:56', '2022-11-18', '02:09:09', 923.72, 'AH-1557', 190, 74, 28, NULL, NULL),
+(128, '2022-11-19', '18:58:04', '2022-11-18', '22:32:26', 521.37, 'KI-6974', 181, 44, 30, NULL, NULL),
+(129, '2022-11-23', '17:20:25', '2022-11-22', '20:58:08', 848.27, 'XD-6593', 248, 35, 73, NULL, NULL);
